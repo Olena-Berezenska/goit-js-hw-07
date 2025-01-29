@@ -44,17 +44,21 @@ btnCreate.addEventListener('click', createBoxes);
 btnDestroy.addEventListener('click', destroyBoxes);
 function createBoxes() {
   const amount = Number(textInput.value);
-  if (amount > 1 && amount < 100) {
+  if (amount >= 1 && amount <= 100) {
+    boxes.innerHTML = '';
+    const fragment = document.createDocumentFragment();
     let height = 30;
     let width = 30;
-    let boxAdding = '';
     for (let i = 0; i < amount; i++) {
       height += 10;
       width += 10;
-      const Newbox = `<div style="height: ${height}px; width: ${width}px; background-color: ${getRandomHexColor()};"></div>`;
-      boxAdding += Newbox;
+      const box = document.createElement('div');
+      box.style.height = `${height}px`;
+      box.style.width = `${width}px`;
+      box.style.backgroundColor = getRandomHexColor();
+      fragment.appendChild(box);
     }
-    boxes.innerHTML = boxAdding;
+    boxes.appendChild(fragment);
   }
   textInput.value = '';
 }
